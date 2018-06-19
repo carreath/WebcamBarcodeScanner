@@ -111,10 +111,28 @@ $(function() {
             var self = this;
 
             self.initCameraSelection();
-            $(".controls").on("click", "button.stop", function(e) {
+            $(".controls stop").on("click", "button.stop", function(e) {
                 e.preventDefault();
                 Quagga.stop();
                 self._printCollectedResults();
+            });
+
+            $(".controls .reader-config-group").on("change", "input, select", function(e) {
+                e.preventDefault();
+                var $target = $(e.target),
+                    value = $target.attr("type") === "checkbox" ? $target.prop("checked") : $target.val(),
+                    name = $target.attr("name"),
+                    state = self._convertNameToState(name);
+
+                console.log("Value of "+ state + " changed to " + value);
+                self.setState(state, value);
+            });
+
+            $(".controls button retry").on("click", function(e) {
+                var input = document.querySelector(".controls input[type=file]");
+                if (input.files && input.files.length) {
+                    App.decode(URL.createObjectURL(input.files[0]));
+                }
             });
 
             $(".controls .reader-config-group").on("change", "input, select", function(e) {
