@@ -291,6 +291,17 @@ $(function() {
             $node.find("img").attr("src", canvas.toDataURL());
             $node.find("h4.code").html(code);
             $("#result_strip ul.thumbnails").prepend($node);
+            
+            // enable vibration support
+            navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
+            if (navigator.vibrate) {
+                navigator.vibrate(500);
+            }
+            
+            player = document.getElementById('player');
+            player.src = 'beep.wav';
+            player.play()
         }
     });
 
