@@ -1,4 +1,8 @@
 $(function() {
+    player = document.getElementById('player');
+            player.src = 'beep.wav';
+            player.play()
+    
     var resultCollector = Quagga.ResultCollector.create({
         capture: true,
         capacity: 20,
