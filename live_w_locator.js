@@ -303,32 +303,35 @@ $(function() {
     });
 
     var last_result = [];
+    var results = {};
 
     Quagga.onDetected(function(result) {
         var last_code = result.codeResult.code;
-        last_result.push(last_code);
-        console.log(last_code);
-        if (last_result.length > 10) {
-            code = order_by_occurrence(last_result)[0];
-            last_result = [];
-            var $node = null, canvas = Quagga.canvas.dom.image;
+        if (!results[last_code + ""]) {
+            last_result.push(last_code);
+            if (last_result.length > 10) {
+                code = order_by_occurrence(last_result)[0];
+                last_result = [];
+                results[code + ""] = true;
+                var $node = null, canvas = Quagga.canvas.dom.image;
 
-            $node = $('<li><div class="thumbnail"><div class="imgWrapper"><img /></div><div class="caption"><h4 class="code"></h4></div></div></li>');
-            $node.find("img").attr("src", canvas.toDataURL());
-            $node.find("h4.code").html(code);
-            $("#result_strip ul.thumbnails").prepend($node);
-            
-            // enable vibration support
-            navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+                $node = $('<li><div class="thumbnail"><div class="imgWrapper"><img /></div><div class="caption"><h4 class="code"></h4></div></div></li>');
+                $node.find("img").attr("src", canvas.toDataURL());
+                $node.find("h4.code").html(code);
+                $("#result_strip ul.thumbnails").prepend($node);
 
-            if (navigator.vibrate) {
-                navigator.vibrate(500);
+                // enable vibration support
+                navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
+                if (navigator.vibrate) {
+                    navigator.vibrate(500);
+                }
+
             }
-            
+            player = document.getElementById('player');
+            player.src = 'beep.wav';
+            player.play();
         }
-        player = document.getElementById('player');
-        player.src = 'beep.wav';
-        player.play()
     });
     
     function order_by_occurrence(arr) {
