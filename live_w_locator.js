@@ -307,6 +307,7 @@ $(function() {
     Quagga.onDetected(function(result) {
         var last_code = result.codeResult.code;
         last_result.push(last_code);
+        console.log(last_code);
         if (last_result.length > 10) {
             code = order_by_occurrence(last_result)[0];
             last_result = [];
