@@ -324,10 +324,10 @@ $(function() {
                 navigator.vibrate(500);
             }
             
-            player = document.getElementById('player');
-            player.src = 'beep.wav';
-            player.play()
         }
+        player = document.getElementById('player');
+        player.src = 'beep.wav';
+        player.play()
     });
     
     function order_by_occurrence(arr) {
