@@ -302,11 +302,14 @@ $(function() {
         }
     });
 
-    Quagga.onDetected(function(result) {
-        var code = result.codeResult.code;
+    var last_result = [];
 
-        if (App.lastResult !== code) {
-            App.lastResult = code;
+    Quagga.onDetected(function(result) {
+        var last_code = result.codeResult.code;
+        last_result.push(last_code);
+        if (last_result.length > 10) {
+            code = order_by_occurrence(last_result)[0];
+            last_result = [];
             var $node = null, canvas = Quagga.canvas.dom.image;
 
             $node = $('<li><div class="thumbnail"><div class="imgWrapper"><img /></div><div class="caption"><h4 class="code"></h4></div></div></li>');
@@ -326,5 +329,19 @@ $(function() {
             player.play()
         }
     });
+    
+    function order_by_occurrence(arr) {
+      var counts = {};
+      arr.forEach(function(value){
+          if(!counts[value]) {
+              counts[value] = 0;
+          }
+          counts[value]++;
+      });
+
+      return Object.keys(counts).sort(function(curKey,nextKey) {
+          return counts[curKey] < counts[nextKey];
+      });
+    }
 
 });
