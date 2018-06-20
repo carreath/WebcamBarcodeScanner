@@ -259,7 +259,7 @@ $(function() {
                 halfSample: true
             },
             numOfWorkers: 8,
-            frequency: 10,
+            frequency: 40,
             decoder: {
                 readers : [
                       {format: "code_128_reader",config: {}},
