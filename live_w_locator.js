@@ -267,7 +267,7 @@ $(function() {
             frequency: 10,
             decoder: {
                 readers : [{
-                    format: "ean_reader",
+                    format: "2of5_reader",
                     config: {}
                 }]
             },
