@@ -267,7 +267,7 @@ $(function() {
             frequency: 10,
             decoder: {
                 readers : [{
-                    format: "2of5_reader",
+                    format: "codabar_reader",
                     config: {}
                 }]
             },
